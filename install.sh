@@ -7,7 +7,7 @@ fi
 if [[ -z "$(ls -A /mnt)" ]]; then
     mount /dev/mapper/cryptroot /mnt
     
-    if [[ -z /mnt/boot ]]; then
+    if [[ -z /mnt/boot || -z "$(ls -A /mnt/boot)" ]]; then
         mkdir -p /mnt/boot
         mount /dev/nvme0n1p1 /mnt/efi
     fi
@@ -15,7 +15,7 @@ if [[ -z "$(ls -A /mnt)" ]]; then
     if [[ -z /dev/mapper/crypthome ]]; then
         cryptsetup open /dev/nvme0n1p3 crypthome
     fi
-    if [[ -z /mnt/home ]]; then
+    if [[ -z /mnt/home || -z "$(ls -A /mnt/home)" ]]; then
         mkdir -p /mnt/home
         mount /dev/mapper/crypthome /mnt/home
     fi
