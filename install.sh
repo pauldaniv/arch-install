@@ -7,8 +7,8 @@ fi
 if [[ -z "$(ls -A /mnt)" ]]; then
     mount /dev/mapper/cryptroot /mnt
     
-    if [[ -z /mnt/boot || -z "$(ls -A /mnt/boot)" ]]; then
-        mkdir -p /mnt/boot
+    if [[ -z /mnt/efi || -z "$(ls -A /mnt/efi)" ]]; then
+        mkdir -p /mnt/efi
         mount /dev/nvme0n1p1 /mnt/efi
     fi
     
