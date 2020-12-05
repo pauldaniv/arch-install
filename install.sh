@@ -1,9 +1,13 @@
 loadkeys dvorak
 timedatectl set-ntp true
-cryptsetup open /dev/nvme0n1p2 cryptroot
+if [[ -z /dev/mapper/cryptroot ]]; then
+    cryptsetup open /dev/nvme0n1p2 cryptroot
+fi
 mount /dev/mapper/cryptroot /mnt
-mkdir /mnt/boot
+mkdir -p /mnt/boot
 mount /dev/nvme0n1p1 /mnt/efi
-cryptsetup open /dev/nvme0n1p3 crypthome
-mkdir /mnt/home
+if [[ -z /dev/mapper/crypthome ]]; then
+    cryptsetup open /dev/nvme0n1p3 crypthome
+fi
+mkdir -p /mnt/home
 mount /dev/mapper/crypthome /mnt/home
